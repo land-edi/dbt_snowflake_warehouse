@@ -41,11 +41,11 @@ models:
     # Config indicated by + and applies to all files under models/intermediate/
     intermediate:
       +enabled: true
-      +materialized: view
+      +materialized: table
       +schema: intermediate
 
     # Config indicated by + and applies to all files under models/mart/
     mart:
       +enabled: true
-      +materialized: view
+      +materialized: table
       +schema: mart

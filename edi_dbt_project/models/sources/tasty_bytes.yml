@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: raw_customer # schema name
+    database: tasty_bytes # database name
+    description: "Source data for the Tasty Bytes customers attributes"
+    config:
+      enabled: true
+    tables:
+      - name: customer_loyalty
+  - name: raw_pos # schema name
+    database: tasty_bytes # database name
+    description: "Source data for the Tasty Bytes Point of Sale transactions"
+    config:
+      enabled: true
+    tables:
+      - name: country
+      - name: daily_sales_humburger_t
+      - name: daily_sales_pizza
+      - name: daily_sales_sandwich
+      - name: franchise
+      - name: location
+      - name: menu
+      - name: order_detail
+      - name: order_header
+      - name: truck
