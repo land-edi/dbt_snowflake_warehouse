@@ -1,0 +1,28 @@
+version: 2
+
+macros:
+  - name: row_count_variation
+    description: 
+      Test the row count variation of a model by comparing percentage of change from previous value to a defined threshold.
+    documentation:
+      This macro allows you to test the row count variation of a model by comparing the percentage of change from previous value values within a specified time range. 
+      It is useful for monitoring changes in data volume over time. The parameters are
+      - the time granularity (`HOUR`, `DAY`, `WEEK`, `MONTH`, `YEAR` with default `DAY`)
+      - the window of time to look back (default is 7)
+      - the threshold for variation (default is 15)
+      It is either set at a timestamp/date column level of a model or at the model level if the model has a timestamp/date column named `event_timestamp`
+      ```
+        tests:
+          - row_count_variation:
+              granularity: DAY
+              window: 7
+              threshold: 15
+      ``` 
+    tags: [generic, row_count_variation]
+    config:
+      enabled: true
+    type: test
+    arguments:
+      - name: granularity
+        type: datepart
+        description: Number of decimal places. Defaults to 2.
