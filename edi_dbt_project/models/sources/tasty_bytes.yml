@@ -15,7 +15,7 @@ sources:
       enabled: true
     tables:
       - name: country
-      - name: daily_sales_humburger_t
+      - name: daily_sales_hamburg_t
       - name: daily_sales_pizza
       - name: daily_sales_sandwich
       - name: franchise
