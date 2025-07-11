@@ -1,12 +1,13 @@
 ## dbt models for base__tasty_bytes_daily_humburger_sales
 
 {% docs doc_base__tasty_bytes_daily_humburger_sales %}
-Description
+
+Description:
 Base model for Tasty Bytes daily hamburger sales
 
-Caveat
+Caveat:
 
-Details
+Details:
 - garin:
 - Primary Key:
 
