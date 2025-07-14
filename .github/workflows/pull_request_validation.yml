@@ -40,5 +40,4 @@ jobs:
         run: |
           cd edi_dbt_project
           dbt deps
-          dbt debug --profiles-dir .dbt --target dev
           dbt build --profiles-dir .dbt --target dev
