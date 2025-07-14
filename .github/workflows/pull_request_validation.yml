@@ -10,20 +10,21 @@ on:
 
 jobs:
 
-  env:
-    # Read connection secret
-    SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-    DEV_DATABASE: ${{ secrets.DEV_DATABASE }}
-    SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-    SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-    DEFAULT_SCHEMA: ${{ secrets.DEFAULT_SCHEMA }}
-    SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-    DEV_WH: ${{ secrets.DEV_WH }}
-    PROD_DATABASE: ${{ secrets.PROD_DATABASE }}
-    PROD_WH: ${{ secrets.PROD_WH }}
-
   dbt:
     runs-on: ubuntu-latest
+
+    env:
+      # Read connection secret
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      DEV_DATABASE: ${{ secrets.DEV_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      DEFAULT_SCHEMA: ${{ secrets.DEFAULT_SCHEMA }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      DEV_WH: ${{ secrets.DEV_WH }}
+      PROD_DATABASE: ${{ secrets.PROD_DATABASE }}
+      PROD_WH: ${{ secrets.PROD_WH }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
