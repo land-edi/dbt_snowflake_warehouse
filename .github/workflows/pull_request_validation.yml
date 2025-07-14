@@ -1,0 +1,42 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - edi_dbt_project/**
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+
+  env:
+    # Read connection secret
+    SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+    DEV_DATABASE: ${{ secrets.DEV_DATABASE }}
+    SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+    SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+    DEFAULT_SCHEMA: ${{ secrets.DEFAULT_SCHEMA }}
+    SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+    DEV_WH: ${{ secrets.DEV_WH }}
+    PROD_DATABASE: ${{ secrets.PROD_DATABASE }}
+    PROD_WH: ${{ secrets.PROD_WH }}
+
+  dbt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install dbt and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
+      - name: Run dbt commands
+        run: |
+          cd edi_dbt_project
+          dbt deps
+          dbt build --select state:modified --profiles-dir .dbt --target dev

@@ -1,0 +1,23 @@
+edi-datawarehouse:
+  outputs:
+    dev:
+      account: $SNOWFLAKE_ACCOUNT
+      database: $DEV_DATABASE
+      password: $SNOWFLAKE_PASSWORD
+      role: $SNOWFLAKE_ROLE
+      schema: $DEFAULT_SCHEMA
+      threads: 4
+      type: snowflake
+      user: $secrets.SNOWFLAKE_USER
+      warehouse: $secrets.DEV_WH
+    prod:
+      account: $SNOWFLAKE_ACCOUNT
+      database: $PROD_DATABASE
+      password: $SNOWFLAKE_PASSWORD
+      role: $SNOWFLAKE_ROLE
+      schema: $DEFAULT_SCHEMA
+      threads: 4
+      type: snowflake
+      user: $SNOWFLAKE_USER
+      warehouse: $PROD_WH
+  target: prod
