@@ -9,7 +9,7 @@ Caveat:
 
 Details:
 - garin:
-- Primary Key:
+- Primary Key: date
 
 Playbook:
 ```
