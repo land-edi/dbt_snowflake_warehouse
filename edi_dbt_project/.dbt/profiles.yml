@@ -6,7 +6,7 @@ edi-datawarehouse:
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       role: "{{ env_var('SNOWFLAKE_ROLE') }}"
       schema: "{{ env_var('DEFAULT_SCHEMA') }}"
-      threads: 4
+      threads: 2
       type: snowflake
       user: "{{ env_var('SNOWFLAKE_USER') }}"
       warehouse: "{{ env_var('DEV_WH') }}"
@@ -15,8 +15,8 @@ edi-datawarehouse:
       database: "{{ env_var('PROD_DATABASE') }}"
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       role: "{{ env_var('SNOWFLAKE_ROLE') }}"
-      schema: "{{ env_var('DEFAULT_SCHEMA') }}"
-      threads: 4
+      schema: "{{ env_var('DEFAULT_SCHEMA', 'PUBLIC') }}"
+      threads: 2
       type: snowflake
       user: "{{ env_var('SNOWFLAKE_USER') }}"
       warehouse: "{{ env_var('PROD_WH') }}"
