@@ -4,9 +4,9 @@ on:
   pull_request:
     branches:
       - main
-    # paths:
-    #   - edi_dbt_project/**
-  workflow_dispatch:
+    paths:
+      - edi_dbt_project/**
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
 
