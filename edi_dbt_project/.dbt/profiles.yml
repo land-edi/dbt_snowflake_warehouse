@@ -8,8 +8,8 @@ edi-datawarehouse:
       schema: $DEFAULT_SCHEMA
       threads: 4
       type: snowflake
-      user: $secrets.SNOWFLAKE_USER
-      warehouse: $secrets.DEV_WH
+      user: $SNOWFLAKE_USER
+      warehouse: $DEV_WH
     prod:
       account: $SNOWFLAKE_ACCOUNT
       database: $PROD_DATABASE
