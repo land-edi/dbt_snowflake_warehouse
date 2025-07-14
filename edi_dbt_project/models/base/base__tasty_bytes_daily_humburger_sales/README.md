@@ -8,7 +8,7 @@ Base model for Tasty Bytes daily hamburger sales
 Caveat:
 
 Details:
-- garin:
+- garin: date
 - Primary Key: date
 
 Playbook:
