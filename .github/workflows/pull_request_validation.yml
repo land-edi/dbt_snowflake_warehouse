@@ -39,4 +39,5 @@ jobs:
       - name: Run dbt commands
         run: |
           dbt deps --project-dir edi_dbt_project
+          dbt debug --project-dir edi_dbt_project --profiles-dir .dbt --target dev
           dbt build --project-dir edi_dbt_project --profiles-dir .dbt --target dev
