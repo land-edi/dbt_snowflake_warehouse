@@ -36,16 +36,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install dbt-core dbt-snowflake
-
-      # Install Snowflake CLI GitHub Action and point to config file
-      - name: Install SnowflakeCLI
-        uses: snowflakedb/snowflake-cli-action@v1.5
-        with:
-          cli-version: "latest"
-          default-config-file-path: "config.toml"
+          dbt deps --project-dir edi_dbt_project
 
       - name: Run dbt commands
         run: |
-          dbt deps --project-dir edi_dbt_project
           dbt debug --project-dir edi_dbt_project --profiles-dir .dbt --target dev
           dbt build --project-dir edi_dbt_project --profiles-dir .dbt --target dev
