@@ -4,11 +4,36 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - edi_dbt_project/**
+    # paths:
+    #   - edi_dbt_project/**
     types: [opened, synchronize, reopened, edited]
 
 jobs:
+
+  references:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install dbt and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
+          dbt deps --project-dir edi_dbt_project
+          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+
+      - name: Create manifest
+        run: |
+          dbt ls --select path:models/mart/ --output json --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+      
+      - name: Validate mart → base model rules
+        run: python ci-check-model-graph.py
+
 
   dbt:
     runs-on: ubuntu-latest
