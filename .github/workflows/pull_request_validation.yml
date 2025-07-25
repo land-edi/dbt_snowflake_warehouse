@@ -37,7 +37,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-core dbt-snowflake
           dbt deps --project-dir edi_dbt_project
-          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
 
       - name: Create manifest
         run: |
