@@ -40,7 +40,7 @@ jobs:
 
       - name: Create manifest
         run: |
-          dbt ls --select path:models/mart/ --output json --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          dbt ls --select path:models/mart/ --output json --project-dir edi_dbt_project --profiles-dir .dbt --target dev >> target/manifest.json
       
       - name: Validate mart → base model rules
         run: python ci-check-model-graph.py
