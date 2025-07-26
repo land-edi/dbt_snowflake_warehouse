@@ -11,6 +11,7 @@ on:
 jobs:
 
   references:
+    name: Validate model references
     runs-on: ubuntu-latest
 
     env:
@@ -46,6 +47,7 @@ jobs:
         run: python ci-check-model-graph.py
 
   dbt:
+    name: DBT CI with State Comparison
     runs-on: ubuntu-latest
 
     env:
@@ -61,8 +63,10 @@ jobs:
       PROD_WH: ${{ secrets.PROD_WH }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout PR branch
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -71,9 +75,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install dbt-core dbt-snowflake
-          dbt deps --project-dir edi_dbt_project
-
-      - name: Run dbt commands
+      - name: Save current branch name
+        id: vars
+        run: echo "branch_name=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Checkout main branch
         run: |
-          dbt debug --project-dir edi_dbt_project --profiles-dir .dbt --target dev
-          dbt build --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          git checkout origin/main
+          dbt deps --project-dir edi_dbt_project
+          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          mkdir -p edi_dbt_project/state_artifacts
+          cp edi_dbt_project/target/manifest.json edi_dbt_project/state_artifacts/manifest.json
+      - name: Checkout PR branch again
+        run: git checkout ${{ steps.vars.outputs.branch_name }}
+      - name: Install PR dependencies & run CI tests
+        run: |
+          dbt deps --project-dir edi_dbt_project
+          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          dbt build --select state:modified --state edi_dbt_project/state_artifacts --project-dir edi_dbt_project --profiles-dir .dbt --target dev
