@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: tasty_bytes_daily_hamburg_sales
+    description: '{{ doc("doc_tasty_bytes_daily_hamburg_sales") }}'
+    config:
+      enabled: true
+      enforce_schema: true
+    meta:
+      owner: "data_team"
+      support_contact: "data_team@edi.com" # Define the support contact email or team alias
+      approver: "data_team@edi.com" 
+    tests:
+      - row_count_variation
+    columns:
+      - name: event_timestamp
+        description: "Timestamp of the sales event"
+        type: timestamp
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total sales amount for the day"
+        type: numeric
