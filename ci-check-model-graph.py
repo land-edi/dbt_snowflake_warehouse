@@ -1,19 +1,22 @@
 import json
 
-with open('target/manifest.json') as f:
-    manifest = json.load(f)
+manifest = []
+with open('target/manifest.json') as file:
+    for line in file:
+        json_object = json.loads(line.strip())
+        manifest.append(json_object)
 
 violations = []
 
-for node in manifest['nodes'].values():
+for node in manifest:
     if node['resource_type'] != 'model':
         continue
 
-    if not node['original_file_path'].startswith('marts/'):
+    if not node['original_file_path'].startswith('models/mart/'):
         continue
 
     for dep in node['depends_on']['nodes']:
-        if dep.startswith('model.base__'):
+        if dep.split(".")[-1].startswith('base__'):
             violations.append((node['name'], dep))
 
 if violations:
