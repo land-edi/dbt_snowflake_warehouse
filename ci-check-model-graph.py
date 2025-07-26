@@ -1,16 +1,13 @@
 import json
 
-manifest = []
-with open('target/manifest.json') as file:
-    for line in file:
-        json_object = json.loads(line.strip())
-        manifest.append(json_object)
+with open('edi_dbt_project/target/manifest.json') as file:
+    manifest = json.load(file)
 
 base_violations = []
 
 source_violations = []
 
-for node in manifest:
+for node in manifest['nodes'].values():
     if node['resource_type'] != 'model':
         continue
 
