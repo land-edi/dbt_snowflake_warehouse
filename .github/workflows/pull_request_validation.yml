@@ -38,10 +38,10 @@ jobs:
           pip install dbt-core dbt-snowflake
           dbt deps --project-dir edi_dbt_project
 
-      - name: Create manifest
-        run: |
-          mkdir -p target
-          dbt --quiet ls --output json --project-dir edi_dbt_project --profiles-dir .dbt --target dev > target/manifest.json
+      # - name: Create manifest
+      #   run: |
+      #     mkdir -p target
+      #     dbt --quiet ls --output json --project-dir edi_dbt_project --profiles-dir .dbt --target dev > target/manifest.json
       
       - name: Validate mart → base or source model rules
         run: python ci-check-model-graph.py
