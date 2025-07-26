@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
       - main
-    # paths:
-    #   - edi_dbt_project/**
+    paths:
+      - edi_dbt_project/**
     types: [opened, synchronize, reopened, edited]
 
 jobs:
