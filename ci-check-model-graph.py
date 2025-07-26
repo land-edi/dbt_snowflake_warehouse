@@ -20,7 +20,7 @@ for node in manifest:
     for dep in node['depends_on']['nodes']:
         if dep.split(".")[-1].startswith('base__'):
             base_violations.append((node['name'], dep))
-        if dep.split(".")[1].startswith('source'):
+        if dep.startswith('source'):
             source_violations.append((node['name'], dep))
 
 if base_violations or source_violations:
