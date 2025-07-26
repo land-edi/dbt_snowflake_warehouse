@@ -82,7 +82,7 @@ jobs:
         run: |
           git checkout origin/main
           dbt deps --project-dir edi_dbt_project
-          dbt parse --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
           mkdir -p edi_dbt_project/state_artifacts
           cp edi_dbt_project/target/manifest.json edi_dbt_project/state_artifacts/manifest.json
       - name: Checkout PR branch again
@@ -90,5 +90,5 @@ jobs:
       - name: Install PR dependencies & run CI tests
         run: |
           dbt deps --project-dir edi_dbt_project
-          dbt parse --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          dbt compile --project-dir edi_dbt_project --profiles-dir .dbt --target dev
           dbt build --select state:modified --state edi_dbt_project/state_artifacts --project-dir edi_dbt_project --profiles-dir .dbt --target dev
