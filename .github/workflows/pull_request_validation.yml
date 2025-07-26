@@ -73,7 +73,12 @@ jobs:
           pip install dbt-core dbt-snowflake
           dbt deps --project-dir edi_dbt_project
 
-      - name: Run dbt commands
+      - name: Download previous manifest
+        uses: actions/download-artifact@v3
+        with:
+          name: manifest
+          path: edi_dbt_project/state_artifacts/
+
+      - name: Run dbt on modified models
         run: |
-          dbt debug --project-dir edi_dbt_project --profiles-dir .dbt --target dev
-          dbt build --project-dir edi_dbt_project --profiles-dir .dbt --target dev
+          dbt build --select state:modified --state edi_dbt_project/state_artifacts/ --project-dir edi_dbt_project --profiles-dir .dbt --target dev
